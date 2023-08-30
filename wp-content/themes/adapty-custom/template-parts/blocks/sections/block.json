@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "adapty/sections",
+  "title": "Sections",
+  "description": "Sections for webpage",
+  "keywords": ["sections", "blocks", "columns", "row" ],
+  "category": "adapty",
+  "textdomain": "adapty-custom",
+  "mode": "preview",
+  "icon": {
+    "background": "#6720FF",
+    "foreground": "#fff",
+    "src": "columns"
+  },
+  "supports": {
+    "anchor": true,
+    "jsx": true,
+    "align_text": false,
+    "align_content": true,
+    "align": [ "full" ],
+    "color": {
+      "text": true,
+      "background": true
+    }
+  },
+  "styles": [
+    { "name": "full", "label": "Fill Width", "isDefault": true },
+    { "name": "50-50", "label": "50% / 50%" },
+    { "name": "33-66", "label": "33% / 66%" },
+    { "name": "66-33", "label": "66% / 33%" }
+  ],
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "none"
+    }
+  },
+  "editorStyle": "file:./editor.min.css",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "template-parts/blocks/sections/index.php",
+    "postTypes": [ "page", "post" ],
+    "blockVersion": 3
+  }
+}

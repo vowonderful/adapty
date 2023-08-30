@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "adapty/content",
+  "title": "Flexible Content",
+  "description": "Custom Content Constructor",
+  "keywords": ["adapty", "content", "flexible" ],
+  "category": "adapty",
+  "textdomain": "adapty-custom",
+  "mode": "preview",
+  "icon": {
+    "background": "#6720FF",
+    "foreground": "#fff",
+    "src": "editor-kitchensink"
+  },
+  "supports": {
+    "anchor": true,
+    "jsx": true,
+    "align_text": false,
+    "align_content": false,
+    "align": [ "full" ],
+    "color": {
+      "text": true,
+      "background": true
+    }
+  },
+  "attributes": {
+    "align": {
+      "type": "string",
+      "default": "none"
+    }
+  },
+  "style": [ "file:./style.min.css" ],
+  "editorStyle": "file:./editor.min.css",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "template-parts/blocks/content/index.php",
+    "postTypes": [ "page", "post" ],
+    "blockVersion": 3
+  }
+}

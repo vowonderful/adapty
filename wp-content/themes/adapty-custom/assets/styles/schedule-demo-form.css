@@ -1,0 +1,286 @@
+.request-demo-section {
+    padding: 5rem 0;
+}
+
+.demo-contact-form form {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    max-width: 526px;
+    width: calc(100% - 3rem);
+    height: auto;
+    background: #fff;
+    border-radius: 16px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.demo-contact-form .form-title {
+    color: #242424;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 18px;
+    text-align: center;
+    width: 100%;
+}
+
+.demo-contact-form form > div {
+    height: auto;
+    box-sizing: border-box;
+    position: relative;
+    background-color: transparent;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.demo-contact-form .error-message {
+    width: 100%;
+    font-size: 12px;
+    color: #E44E48;
+    margin-top: 2px;
+    display: flex;
+}
+
+.demo-contact-form form > div.info {
+    --wdith: 100%;
+
+    font-size: 12px;
+    color: #9D9D9D;
+    line-height: 16px;
+    text-align: left;
+    max-width: var(--wdith);
+    width: var(--wdith);
+    margin-top: 15px;
+}
+
+.demo-contact-form .info__link {
+    --color: #9D9D9D;
+
+    color: var(--color);
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color);
+    transition: all .25s;
+}
+
+.demo-contact-form .info__link:hover {
+    --color: #76ab76;
+}
+
+.demo-contact-form .info__link:active {
+    --color: #368836;
+}
+
+.demo-contact-form select,
+.demo-contact-form input {
+    outline: none;
+    border-radius: 0;
+    width: 100%;
+    font-size: 14px;
+    padding: 20px 10px 5px 15px;
+    box-sizing: border-box;
+    height: 43px;
+    border: 1px solid #2424244d;
+    color: #000;
+    background-color: #FFF;
+    appearance: none;
+}
+
+.demo-contact-form .select-arrow {
+    position: absolute;
+    right: 12px;
+    top: 20px;
+    pointer-events: none;
+}
+
+.demo-contact-form label {
+    position: absolute;
+    pointer-events: none;
+    top: 11px;
+    left: 15px;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666;
+    transition: all .1s ease-out;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: calc(100% - 50px);
+}
+
+.demo-contact-form .field-picker label {
+    left: 66px;
+}
+
+.demo-contact-form select,
+.demo-contact-form input {
+    transition: all .25s;
+}
+
+.demo-contact-form select:hover,
+.demo-contact-form input:hover {
+    border: 1px solid #24242499;
+}
+.demo-contact-form select:focus,
+.demo-contact-form input:focus {
+    border: 1px solid #47B972;
+}
+
+.demo-contact-form select.error,
+.demo-contact-form input.error {
+    border: 1px solid #e44e48c4;
+}
+
+.demo-contact-form label .r {
+    opacity: 1;
+    margin-left: 2px;
+    color: #49060699;
+    transition: opacity .3s;
+}
+
+.demo-contact-form .field-picker.field-filled label,
+.demo-contact-form .field-picker.field-focus label,
+.demo-contact-form .field-picker.field-pin label {
+    top: 5px;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.demo-contact-form select:focus + label,
+.demo-contact-form input:focus + label,
+.demo-contact-form select.filled + label,
+.demo-contact-form input.filled + label {
+    top: 5px;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.demo-contact-form select:focus + label .r,
+.demo-contact-form input:focus + label .r,
+.demo-contact-form select.filled + label .r,
+.demo-contact-form input.filled + label .r,
+.demo-contact-form .field-picker.field-filled .r,
+.demo-contact-form .field-picker.field-focus .r {
+    opacity: 0;
+}
+
+.demo-contact-form button {
+    color: #FFF;
+    background-color: #47B972;
+    padding: 12px 20px;
+    margin: 10px auto auto;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    min-height: 46px;
+    transition: background-color .25s, transform .25s, box-shadow .75s ease-out;
+}
+.demo-contact-form button:hover {
+    background-color: #43af6c;
+}
+.demo-contact-form button:active {
+    transform: scale(.97);
+}
+
+.demo-contact-form button.success {
+    box-shadow: 0 0 0 3px white, 0 0 12px 12px #30bc66, 0 0 30px 10px #1ad661;
+}
+
+.iti {
+    width: 100%;
+}
+.iti__selected-flag {
+    min-width: 55px;
+    border-right: 1px solid #2424244d;
+    background-color: #fff !important;
+}
+/*.field-picker .iti__selected-flag {*/
+/*    border-right: 1px solid #24242499;*/
+/*}*/
+/*.field-filled .iti__selected-flag {*/
+/*    border-right: 1px solid #47B972;*/
+/*}*/
+/*.field-error .iti__selected-flag {*/
+/*    border-right: 1px solid #e44e48c4;*/
+/*}*/
+.iti__flag-box,
+.iti__country-name {
+    margin-right: 8px;
+    font-size: 16px;
+}
+.iti__dial-code {
+    color: #6b6b6b;
+    font-size: 16px;
+}
+.iti__country-list {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: calc(100vw - 6rem - 1px);
+}
+.iti__country-list, .iti__country-list * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    white-space: break-spaces;
+    line-height: 100%;
+}
+.iti__country {
+    padding: 10px;
+}
+.iti--allow-dropdown input {
+    padding-left: 65px !important;
+}
+
+.iti__selected-flag .iti__arrow {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    margin-left: 6px;
+    width: 0;
+    height: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    background: url('/wp-content/themes/adapty-custom/assets/img/dropdown-arrow.svg');
+    left: 21px;
+    border: none !important;
+    width: 14px !important;
+    height: 14px !important;
+    margin-top: 0px !important;
+    transition: transform .2s ease-in-out;
+}
+
+.iti__selected-flag iti__arrow--up {
+    transform: rotateX(180deg);
+}
+
+@media screen and (min-width: 600px) {
+    .demo-contact-form form {
+        padding: 30px;
+    }
+    .demo-contact-form form > div {
+        width: calc(50% - 5px);
+    }
+    .demo-contact-form form > div.info {
+        --wdith: 80%;
+    }
+    .demo-contact-form .form-title {
+        margin-bottom: 28px;
+    }
+    .demo-contact-form .iti__country-list {
+        width: 218px;
+    }
+}
+@media screen and (min-width: 960px) {
+    .demo-contact-form form {
+        padding: 40px;
+    }
+}

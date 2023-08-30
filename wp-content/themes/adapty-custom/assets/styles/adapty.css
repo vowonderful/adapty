@@ -1,0 +1,238 @@
+/* I don't connect Tailwind, because relatively little CSS code will be used as part of the task. */
+
+:root {
+    --adapty-color-accent: #6720FF;
+    --adapty-layout-width: 1100px;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/inter/inter.ttf') format('ttf'),
+         url('../fonts/inter/inter.woff2') format('woff2');
+}
+
+html :where(.wp-block) {
+    max-width: var(--adapty-layout-width);
+}
+
+* {
+    font-family: "Inter";
+}
+
+html, html body {
+    font-size: 18px;
+    color: #000;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: clamp(30px, calc(24px + 1.7vw), 48px);
+    line-height: clamp(32px, calc(36px + 1.8vw), 62px);
+    font-weight: 900;
+}
+h2 {
+    font-size: clamp(30px, calc(18px + 2vw), 34px);
+    line-height: clamp(36px, calc(28px + 1.8vw), 44px);
+    font-weight: 700;
+}
+
+.align-content--top .a-recurring-block > div {
+    justify-content: flex-start;
+}
+.align-content--center .a-recurring-block > div {
+    justify-content: center;
+}
+.align-content--bottom .a-recurring-block > div {
+    justify-content: flex-end;
+}
+
+.a-recurring-section {
+    --a-padding: 2.5rem 1.25rem 1.25rem;
+
+    padding: var(--a-padding);
+    transition: padding .3s;
+}
+
+.a-recurring-block {
+    --gap: 1rem;
+
+    max-width: var(--adapty-layout-width);
+    margin: 0 auto;
+    display: flex;
+    gap: var(--gap);
+}
+
+.a-recurring-block .subtitle {
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+}
+
+.a-recurring-block .title,
+.a-recurring-block .description {
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+.a-recurring-block .description {
+    font-size: 14px;
+}
+
+.a-max-width {
+    max-width: var(--adapty-layout-width);
+}
+
+.a-recurring-block--left,
+.a-recurring-block--right {
+    display: flex;
+    flex-direction: column;
+}
+
+.is-style-full {
+    text-align: center;
+}
+.is-style-50-50 .a-recurring-block--left,
+.is-style-50-50 .a-recurring-block--right {
+    width: 50%;
+}
+.is-style-66-33 .a-recurring-block--left,
+.is-style-33-66 .a-recurring-block--right {
+    width: 66.6666%;
+}
+.is-style-66-33 .a-recurring-block--right,
+.is-style-33-66 .a-recurring-block--left {
+    width: 33.3333%;
+}
+
+.image--desktop {
+    display: none;
+}
+.image--mobile {
+    display: block;
+}
+
+a.btn,
+.btn {
+    border-radius: 8px;
+    border-width: 1px;
+    white-space: nowrap;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    outline: none;
+    transition: background-color .3s, color .3s, transform .2s, opacity .2s;
+}
+a.btn--hover path,
+.btn--hover path {
+    transition: stroke .3s, fill .3s, transform .2s, opacity .2s;
+}
+a.btn:active,
+.btn:active {
+    opacity: .8;
+    transform: scale(.975);
+}
+
+a.btn__style--primary,
+.btn__style--primary {
+    background-color: #6720FF;
+    color: #fff;
+    box-shadow: 0 0 #0000,0 0 #0000,0 4px 12px rgba(103,32,255,.25);
+}
+
+a.btn__style--blank,
+.btn__style--blank {
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    padding: 6px;
+    margin: -6px;
+}
+
+a.btn__style--blank.btn--hover:hover,
+.btn__style--blank.btn--hover:hover {
+    color: var(--adapty-color-accent);
+}
+a.btn__style--blank.btn--hover:hover path,
+.btn__style--blank.btn--hover:hover path {
+    fill: var(--adapty-color-accent);
+}
+
+a.btn__size--large,
+.btn__size--large {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 1px;
+    padding: 1.25rem 1.5rem;
+}
+
+#hero .title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+#hero .a-recurring-block--right {
+    display: block;
+    padding: .625rem;
+}
+#hero .a-recurring-block--left {
+    padding-bottom: 2.125rem;
+    padding-top: .625rem;
+}
+
+#measuring .image {
+    margin-top: 1rem
+}
+
+@media screen and (max-width: 767.98px) {
+    #hero .a-recurring-block--right {
+        display: none;
+    }
+    #hero .a-recurring-block--left {
+        width: 100%;
+    }
+    .a-recurring-block {
+        flex-direction: column;
+    }
+    .inverse-on-mobile .a-recurring-block {
+        flex-direction: column-reverse !important;
+    }
+    .is-style-50-50 .a-recurring-block--left,
+    .is-style-50-50 .a-recurring-block--right,
+    .is-style-66-33 .a-recurring-block--left,
+    .is-style-33-66 .a-recurring-block--right,
+    .is-style-66-33 .a-recurring-block--right,
+    .is-style-33-66 .a-recurring-block--left {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 768px) {
+    .image--desktop {
+        display: block;
+    }
+    .image--mobile {
+        display: none;
+    }
+    .a-recurring-section {
+        --a-padding: 2.5rem 2rem 3.75rem;
+    }
+    .a-recurring-block {
+        --gap: 3rem;
+    }
+    .a-recurring-block .description {
+        font-size: 1rem;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .a-recurring-section {
+        --a-padding: 3.25rem 2.5rem;
+    }
+}
