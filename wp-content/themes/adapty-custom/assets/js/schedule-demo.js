@@ -159,15 +159,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 jQuery(document).ready(function () {
     const phoneInput = document.querySelector("#phoneNumber");
+    let flag = 0;
     const iti = window.intlTelInput(phoneInput, {
         formatOnDisplay: true,
-        geoIpLookup: function(callback) {
-            fetch("https://ipapi.co/json")
-                .then(function(res) { return res.json(); })
-                .then(function(data) { callback(data.country_code); })
-                .catch(function() { callback("pl"); });
-        },
-        initialCountry: "auto",
+        // geoIpLookup: function(callback) {
+        //     fetch("https://ipapi.co/json")
+        //         .then(function(res) { return res.json(); })
+        //         .then(function(data) {
+        //             //let countryCode = data.country_calling_code;
+        //             //phoneInput.value = countryCode ? countryCode : '';
+        //             callback(data.country_code);
+        //         })
+        //         .catch(function() { callback("pl"); });
+        // },
+        // initialCountry: "auto",
         localizedCountries: {
             ac: "Ascension Island",
             ad: "Andorra",
@@ -419,39 +424,121 @@ jQuery(document).ready(function () {
         utilsScript: '/wp-content/themes/adapty-custom/assets/js/intlTelInput.utils.js',
     });
 
-    phoneInput.addEventListener('input', function() {
-        const phoneNumber = phoneInput.value.trim();
-        const plusCount = (phoneNumber.match(/\+/g) || []).length;
-        const selectedCountry = iti.getSelectedCountryData();
-        const isEnterCodeNow = typeof selectedCountry?.dialCode?.length === 'undefined'
-            || (phoneInput.value.length - 1) < selectedCountry?.dialCode?.length;
 
-        if (phoneNumber === '') {
-            phoneInput.value = '';
-        } else if (plusCount > 1) {
-            phoneInput.value = '+' + phoneNumber.replace(/\+/g, '');
-        } else if (phoneNumber.charAt(0) !== '+') {
+    function setDefaultCountry() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://ipapi.co/json/', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                let data = JSON.parse(xhr.responseText);
+                let countryCode = data.country_calling_code;
+                let countryISO2 = data.country_code;
+
+                iti.setCountry(countryISO2);
+                phoneInput.value = countryCode ? countryCode : '';
+            }
+        }
+        xhr.send();
+    }
+
+    setDefaultCountry()
+
+    phoneInput.addEventListener('input', function () {
+        const format = phoneInput.getAttribute('placeholder');
+        formatPhoneNumber(format);
+    });
+
+
+    function formatPhoneNumber(format) {
+        let selectedCountry = iti.getSelectedCountryData();
+        let dialCode = selectedCountry.dialCode;
+        let phoneNumber = phoneInput.value.replace(/[^0-9]/g, '');;
+
+        let formattedNumber = '';
+        let formatIndex = 0;
+        let formatReplaced = '+' + dialCode + "*" + format.replaceAll(' ', '*');
+        let i = 0;
+
+        if (!selectedCountry.dialCode) {
             phoneInput.value = '+' + phoneNumber;
+            return;
         }
 
-        if (selectedCountry && selectedCountry.dialCode) {
-            let newPlaceholder = intlTelInputUtils.getExampleNumber(
-                selectedCountry.iso2,
-                true,
-                intlTelInputUtils.numberFormat.INTERNATIONAL
-            );
-            if (selectedCountry.iso2 === 'by') {
-                newPlaceholder = "(29) 000-00-00";
-            }
-            if (selectedCountry.iso2 === 'pl') {
-                newPlaceholder = "(000) 000 000";
-            }
+        if (selectedCountry.iso2 === 'by') {
+            formatReplaced = '+375*(29)*111-11-11';
+        }
+        if (selectedCountry.iso2 === 'ru') {
+            formatReplaced = '+7*(111)*111-11-11';
+        }
+        if (selectedCountry.iso2 === 'pl') {
+            formatReplaced = "+48*(111)*111*111";
+        }
 
-            let mask = selectedCountry.dialCode
-                ? '+' + selectedCountry.dialCode + ' ' + newPlaceholder.replace(/[1-9]/g, '0')
-                : newPlaceholder.replace(/[1-9]/g, '0');
+        while (i < phoneNumber.length) {
+            if (formatIndex >= formatReplaced.length) {
+                break;
+            }
+            if (
+                +formatReplaced[formatIndex] ||
+                +formatReplaced[formatIndex] === 0
+            ) {
+                formattedNumber += phoneNumber[i];
+                i += 1;
+            } else {
+                if (formatReplaced[formatIndex] === '*') {
+                    formattedNumber += ' ';
+                } else formattedNumber += formatReplaced[formatIndex];
+            }
+            formatIndex += 1;
+        }
+        phoneInput.value = formattedNumber;
+    }
 
-            jQuery(phoneInput).mask(mask);
+    let flagContainer = document.querySelector('.iti__flag-container');
+
+    flagContainer.addEventListener('click', function () {
+        if (flag === 0) {
+            flag += 1;
+        } else {
+            let selectedCountry = iti.getSelectedCountryData();
+            phoneInput.value = "+" + selectedCountry.dialCode;
+            flag -= 1;
         }
     });
+
+    // phoneInput.addEventListener('input', function() {
+    //     const phoneNumber = phoneInput.value.trim();
+    //     const plusCount = (phoneNumber.match(/\+/g) || []).length;
+    //     const selectedCountry = iti.getSelectedCountryData();
+    //     const isEnterCodeNow = typeof selectedCountry?.dialCode?.length === 'undefined'
+    //         || (phoneInput.value.length - 1) < selectedCountry?.dialCode?.length;
+    //
+    //     if (phoneNumber === '') {
+    //         phoneInput.value = '';
+    //     } else if (plusCount > 1) {
+    //         phoneInput.value = '+' + phoneNumber.replace(/\+/g, '');
+    //     } else if (phoneNumber.charAt(0) !== '+') {
+    //         phoneInput.value = '+' + phoneNumber;
+    //     }
+    //
+    //     if (selectedCountry && selectedCountry.dialCode) {
+    //         let newPlaceholder = intlTelInputUtils.getExampleNumber(
+    //             selectedCountry.iso2,
+    //             true,
+    //             intlTelInputUtils.numberFormat.INTERNATIONAL
+    //         );
+    //         if (selectedCountry.iso2 === 'by') {
+    //             newPlaceholder = "(29) 000-00-00";
+    //         }
+    //         if (selectedCountry.iso2 === 'pl') {
+    //             newPlaceholder = "(000) 000 000";
+    //         }
+    //
+    //         let mask = selectedCountry.dialCode
+    //             ? '+' + selectedCountry.dialCode + ' ' + newPlaceholder.replace(/[1-9]/g, '0')
+    //             : newPlaceholder.replace(/[1-9]/g, '0');
+    //
+    //         jQuery(phoneInput).mask(mask);
+    //     }
+    // });
 });
