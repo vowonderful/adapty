@@ -1,0 +1,68 @@
+version: '3.3'
+
+services:
+
+  adapty_db:
+    image: mysql:5.7.39
+    container_name: adapty_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_adapty
+      MYSQL_USER: vm_db_adapty_user
+      MYSQL_PASSWORD: vm_db_adapty_pass
+    ports:
+      - '8024:3306'
+    volumes:
+      - ../database:/var/lib/mysql
+    networks:
+      - adapty_network
+
+  adapty_wp:
+    container_name: adapty_wp
+    image: wordpress:6.3-php8.2
+    user: "${VM_UID}:${VM_GID}"
+    restart: always
+    ports:
+      - '8025:80'
+    environment:
+      WORDPRESS_DB_HOST: adapty_db:3306
+      WORDPRESS_DB_USER: vm_db_adapty_user
+      WORDPRESS_DB_PASSWORD: vm_db_adapty_pass
+      WORDPRESS_DB_NAME: db_adapty
+    volumes:
+      - ../wordpress:/var/www/html
+    depends_on:
+      - adapty_db
+    networks:
+      - adapty_network
+
+#  adapty_cli:
+#    container_name: adapty_cli
+#    image: wordpress:cli-2.8-php8.2
+#    depends_on:
+#      - adapty_db
+#      - adapty_wp
+#    volumes:
+#      - ../wordpress:/var/www/html
+#    working_dir: /var/www/html
+#    command: tail -f /dev/null
+
+  adapty_ma:
+    container_name: adapty_ma
+    depends_on:
+      - adapty_db
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - '8026:80'
+    environment:
+      PMA_HOST: adapty_db
+      UPLOAD_LIMIT: 512M
+    networks:
+      - adapty_network
+
+volumes:
+  adapty_db:
+
+networks:
+  adapty_network:
