@@ -9,6 +9,8 @@ function adapty_shortcode_schedule_demo( $atts ) {
 
     $title = $args['title'];
 
+    ob_start();
+
     if (file_exists($css_file_path)) {
         static $display_schedule_demo_style = 0;
         $css_content = file_get_contents($css_file_path);
@@ -18,7 +20,7 @@ function adapty_shortcode_schedule_demo( $atts ) {
         }
     }
 
-    ob_start(); ?>
+    ?>
 
     <div id="demo-contact-form" class="demo-contact-form">
         <form @submit.prevent="submitForm">
