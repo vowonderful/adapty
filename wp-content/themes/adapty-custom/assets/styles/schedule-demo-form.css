@@ -258,7 +258,7 @@
     transition: transform .2s ease-in-out;
 }
 
-.iti__selected-flag iti__arrow--up {
+.iti__selected-flag .iti__arrow--up {
     transform: rotateX(180deg);
 }
 
